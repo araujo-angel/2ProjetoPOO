@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="a3216f10-7832-4e5b-a69b-3376561f94b4" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.project" beforeDir="false" afterPath="$PROJECT_DIR$/.project" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/appconsole/Alterar.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/appconsole/Alterar.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/appconsole/Apagar.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/appconsole/Apagar.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/appconsole/Cadastrar.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/appconsole/Cadastrar.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/appconsole/Listar.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/appconsole/Listar.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/appconsole/TestarExcecao.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/appconsole/TestarExcecao.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/appswing/TelaEventos.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/appswing/TelaParticipantes.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/appswing/TelaPrincipal$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/appswing/TelaPrincipal$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/appswing/TelaPrincipal$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/appswing/TelaPrincipal$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/appswing/TelaPrincipal.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/appswing/TelaPrincipal.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/modelo/Conta.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/modelo/Conta.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/modelo/ContaEspecial.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/modelo/ContaEspecial.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/modelo/Correntista.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/modelo/Correntista.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/regras_negocio/Fachada.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/regras_negocio/Fachada.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/repositorio/Repositorio.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/repositorio/Repositorio.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/appconsole/Alterar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/appconsole/Alterar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/appconsole/Apagar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/appconsole/Apagar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/appconsole/Cadastrar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/appconsole/Cadastrar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/appconsole/Listar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/appconsole/Listar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/appconsole/TestarExcecao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/appconsole/TestarExcecao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/appswing/TelaContas.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/appswing/TelaContas.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/appswing/TelaCorrentistas.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/appswing/TelaCorrentistas.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/modelo/Conta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/modelo/Conta.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/modelo/ContaEspecial.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/modelo/ContaEspecial.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/modelo/Correntista.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/modelo/Correntista.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/regras_negocio/Fachada.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/regras_negocio/Fachada.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repositorio/Repositorio.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/repositorio/Repositorio.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 0
+}]]></component>
+  <component name="ProjectId" id="2mOO9Pk3LYgtJnt10JgPjCawxpw" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/Angelica/eclipse-workspace/IIProjetoPOO"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a3216f10-7832-4e5b-a69b-3376561f94b4" name="Changes" comment="" />
+      <created>1726944003984</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1726944003984</updated>
+    </task>
+    <servers />
+  </component>
+</project>

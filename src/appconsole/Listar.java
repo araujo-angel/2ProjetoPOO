@@ -1,39 +1,28 @@
 package appconsole;
-/**
- * SI - POO - Prof. Fausto Ayres
- * Teste da Fachada
- * 
- */
 
-import modelo.Evento;
-import modelo.Participante;
+import modelo.Correntista;
+import modelo.Conta;
+//import modelo.ContaEspecial;
 import regras_negocio.Fachada;
 
 public class Listar {
 
 	public Listar() {
 		try {
-			System.out.println("\n---------listagem de contas (arquivo)-----");
-			for(Participante p : Fachada.listarContas("")) 
-				System.out.println(p);
+			System.out.println("\n---------listagem de contas-----");
+			for (Conta c : Fachada.listarContas())
+				System.out.println(c);
 
-			System.out.println("\n---------listagem de correntistas (arquivo) ----");
-			for(Evento e : Fachada.listarCorrentistas()) 
-				System.out.println(e);
-			
-			System.out.println("\n---------listagem de contas especiais (arquivo) ----");
-			for(Evento e : Fachada.listarContaEspecial()) 
-				System.out.println(e);
-			
+			System.out.println("\n---------listagem de correntistas ----");
+			for (Correntista co : Fachada.listarCorrentistas())
+				System.out.println(co);
+
 		} catch (Exception e) {
-			System.out.println("--->"+e.getMessage());
-		}	
+			System.out.println("--->" + e.getMessage());
+		}
 	}
 
-	public static void main (String[] args) 
-	{
+	public static void main(String[] args) {
 		new Listar();
 	}
 }
-
-

@@ -3,6 +3,7 @@ package repositorio;
 import java.io.File;
 import java.io.FileWriter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 import modelo.ContaEspecial;
@@ -10,199 +11,335 @@ import modelo.Correntista;
 import modelo.Conta;
 
 public class Repositorio {
-	private ArrayList<Conta> Contas = new ArrayList<>();
-	private ArrayList<Correntista> Correntistas = new ArrayList<>(); 
+	private ArrayList<Conta> contas = new ArrayList<>();
+	private ArrayList<Correntista> correntistas = new ArrayList<>();
 
 	public Repositorio() {
 		carregarObjetos();
 	}
-	public void adicionar(Conta c)	{
-		Contas.add(c);
-	}
 
-	public void remover(Conta c)	{
-		Contas.remove(c);
-	}
-
-	public Conta localizarConta(String nome)	{
-		for(Conta p : Contas)
-			if(p.getNome().equals(nome))
-				return p;
+	public Correntista localizarCorrentista(String cpf) {
+		for (Correntista co : correntistas)
+			if (co.getCpf().equals(cpf))
+				return co;
 		return null;
 	}
 
-	public void adicionar(Correntista e)	{
-		Correntistas.add(e);
-	}
-	public void remover(Correntista e)	{
-		Correntistas.remove(e);
-	}
-
-	public Correntista localizarCorrentista(int id)	{
-		for(Correntista e : Correntistas)
-			if(e.getId() == id)
-				return e;
-		return null;
-	}
-	public Correntista localizarCorrentista(String data)	{
-		for(Correntista e : Correntistas)
-			if(e.getData().equals(data))
-				return e;
+	public Conta localizarConta(int id) {
+		for (Conta c : contas)
+			if (c.getId() == id)
+				return c;
 		return null;
 	}
 
-	public ArrayList<Conta> getContas() 	{
-		return Contas;
-	}
-	
-	public ArrayList<Correntista> getCorrentistas() 	{
-		return Correntistas;
+	public void adicionar(Correntista co) {
+		correntistas.add(co);
 	}
 
-	public int getTotalConta()	{
-		return Contas.size();
+	public void remover(Correntista co) {
+		correntistas.remove(co);
 	}
 
-	public int getTotalCorrentistas()	{
-		return Correntistas.size();
+	public void adicionar(Conta c) {
+		contas.add(c);
 	}
 
-	public int gerarIdCorrentista() {
-		if (Correntistas.isEmpty())
+	public void remover(Conta c) {
+		contas.remove(c);
+	}
+
+	public ArrayList<Conta> getConta() {
+		return contas;
+	}
+
+	public ArrayList<Correntista> getCorrentistas() {
+		Collections.sort(correntistas);
+		return correntistas;
+	}
+
+	public int getTotalContas() {
+		return contas.size();
+	}
+
+	public int getTotalCorrentistas() {
+		return correntistas.size();
+	}
+
+	public int gerarIdConta() {
+		if (contas.isEmpty())
 			return 1;
 		else {
-			Correntista ultimo = Correntistas.get(Correntistas.size()-1);
+			Conta ultimo = contas.get(contas.size() - 1);
 			return ultimo.getId() + 1;
 		}
 	}
-	public void carregarObjetos()  	{
+//	public void carregarObjetos() {
+//		try {
+//			// caso os arquivos nao existam, serao criados vazios
+//			File f1 = new File(new File(".\\correntistas.csv").getCanonicalPath());
+//			File f2 = new File(new File(".\\contas.csv").getCanonicalPath());
+//			if (!f1.exists() || !f2.exists()) {
+//				// System.out.println("criando arquivo .csv vazio");
+//				FileWriter arquivo1 = new FileWriter(f1);
+//				arquivo1.close();
+//				FileWriter arquivo2 = new FileWriter(f2);
+//				arquivo2.close();
+//				return;
+//			}
+//		} catch (Exception ex) {
+//			throw new RuntimeException("criacao dos arquivos vazios:" + ex.getMessage());
+//		}
+//
+//		String linha;
+//		String[] partes;
+//		Correntista correntista;
+//		Conta conta;
+//		// ***** Carregar Contas ********
+//		try {
+//			String tipo, id, data,saldo, limite;
+//			File f = new File(new File(".\\contas.csv").getCanonicalPath());
+//			Scanner arquivo2 = new Scanner(f);
+//			while (arquivo2.hasNextLine()) {
+//				linha = arquivo2.nextLine().trim();
+//				partes = linha.split(";");
+//				//System.out.println(Arrays.toString(partes));
+//				tipo = partes[0];
+//				id = partes[1];
+//				data = partes[2];
+//				saldo = partes[3];
+//				if (tipo.equals("CONTA")) {
+//					conta = new Conta(Integer.parseInt(id), data, Double.parseDouble(saldo));
+//					this.adicionar(conta);
+//				} 
+//				else {
+//					limite = partes[4];
+//					conta = new ContaEspecial(Integer.parseInt(id), data, 
+//							Double.parseDouble(saldo), Double.parseDouble(limite));
+//					this.adicionar(conta);
+//				}
+//			}
+//			arquivo2.close();
+//		} catch (Exception ex) {
+//			throw new RuntimeException("leitura arquivo de contas:" + ex.getMessage());
+//		}
+//
+//		// ***** Carregar Correntistas ********
+//		try {
+//			String cpf, nome, senha;
+//			File f = new File(new File(".\\correntistas.csv").getCanonicalPath());
+//			Scanner arquivo1 = new Scanner(f);
+//			while (arquivo1.hasNextLine()) {
+//				linha = arquivo1.nextLine().trim();
+//				partes = linha.split(";");
+//				//System.out.println(Arrays.toString(partes));
+//				cpf = partes[0];
+//				nome = partes[1];
+//				senha = partes[2];
+//				correntista = new Correntista(cpf, nome, senha);
+//				this.adicionar(correntista);
+//
+//				if (partes.length > 3) {
+//					String ids;
+//					ids = partes[3]; 	// ids dos correntistas separados por ","
+//					// relacionar correntista com suas contas
+//					for (String idconta : ids.split(",")) { // converter string em array
+//						conta = this.localizarConta(Integer.parseInt(idconta));
+//						conta.adicionar(correntista);
+//						correntista.adicionar(conta);
+//					}
+//				}
+//			}
+//			arquivo1.close();
+//		} catch (Exception ex) {
+//			throw new RuntimeException("leitura arquivo de correntistas:" + ex.getMessage());
+//		}
+//
+//	}
+//
+//	// --------------------------------------------------------------------
+//	public void salvarObjetos() {
+//		// gravar nos arquivos csv os objetos que est�o no reposit�rio
+//		//******** gravar correntistas *****		
+//		try {
+//			File f = new File(new File(".\\correntistas.csv").getCanonicalPath());
+//			FileWriter arquivo1 = new FileWriter(f);
+//			String linha, ids;
+//			ArrayList<String> listaId;
+//			for (Correntista corr : correntistas) {
+//				if (corr.getContas().isEmpty()) 
+//					linha = corr.getCpf() + ";" + corr.getNome() + ";" + corr.getSenha() + "\n";
+//				else {
+//					//montar uma lista com os ids das contas
+//					listaId = new ArrayList<>();
+//					for (Conta cta : corr.getContas()) {
+//						listaId.add(cta.getId() + "");
+//					}
+//					ids = String.join(",", listaId);
+//					linha = corr.getCpf() + ";" + corr.getNome() + ";" + corr.getSenha() + ";" + ids + "\n";
+//				}
+//				arquivo1.write(linha);
+//				//System.out.println("gravando:"+linha);
+//			}
+//			arquivo1.close();
+//		}
+//		catch (Exception e) {
+//			throw new RuntimeException("problema na cria��o do arquivo  correntistas " + e.getMessage());
+//		}
+//
+//		//******** gravar contas *****
+//		try {
+//			File f = new File(new File(".\\contas.csv").getCanonicalPath());
+//			FileWriter arquivo2 = new FileWriter(f);
+//			String linha;
+//			for (Conta cta : contas) {
+//				if (cta instanceof ContaEspecial esp)
+//					linha = "CONTAESPECIAL;" + cta.getId() + ";" + 
+//							cta.getData() +  ";" + cta.getSaldo() + ";" + esp.getLimite()  + "\n";
+//				else
+//					linha = "CONTA;" + cta.getId() + ";" +
+//							cta.getData() + ";" + cta.getSaldo() + ";" + "\n";
+//				
+//				arquivo2.write(linha);
+//				//System.out.println("gravando:"+linha);
+//			}
+//			arquivo2.close();
+//		} catch (Exception e) {
+//			throw new RuntimeException("problema na cria��o do arquivo  contas " + e.getMessage());
+//		}
+//	}
+//}
+
+	public void carregarObjetos() {
 		// carregar para o repositorio os objetos dos arquivos csv
 		try {
-			//caso os arquivos nao existam, serao criados vazios
-			File f1 = new File( new File(".\\correntistas.csv").getCanonicalPath() ) ; 
-			File f2 = new File( new File(".\\contas.csv").getCanonicalPath() ) ; 
-			if (!f1.exists() || !f2.exists() ) {
-				//System.out.println("criando arquivo .csv vazio");
-				FileWriter arquivo1 = new FileWriter(f1); arquivo1.close();
-				FileWriter arquivo2 = new FileWriter(f2); arquivo2.close();
+			// caso os arquivos nao existam, serao criados vazios
+			File f1 = new File(new File(".\\correntistas.csv").getCanonicalPath());
+			File f2 = new File(new File(".\\contas.csv").getCanonicalPath());
+			if (!f1.exists() || !f2.exists()) {
+				FileWriter arquivo1 = new FileWriter(f1);
+				arquivo1.close();
+				FileWriter arquivo2 = new FileWriter(f2);
+				arquivo2.close();
 				return;
 			}
-		}
-		catch(Exception ex)		{
-			throw new RuntimeException("criacao dos arquivos vazios:"+ex.getMessage());
-		}
-
-		String linha;	
-		String[] partes;	
-		Correntista ev;
-		Conta p;
-
-		try	{
-			String data, descricao, id, preco ;
-			File f = new File( new File(".\\correntistas.csv").getCanonicalPath() )  ;
-			Scanner arquivo1 = new Scanner(f);	 
-			while(arquivo1.hasNextLine()) 	{
-				linha = arquivo1.nextLine().trim();		
-				partes = linha.split(";");	
-				//System.out.println(Arrays.toString(partes));
-				id = partes[0];
-				data = partes[1];
-				descricao = partes[2];
-				preco = partes[3];
-				ev = new Correntista(Integer.parseInt(id), descricao, data, Double.parseDouble(preco));
-				this.adicionar(ev);
-			} 
-			arquivo1.close();
-		}
-		catch(Exception ex)		{
-			throw new RuntimeException("leitura arquivo de Correntistas:"+ex.getMessage());
+		} catch (Exception ex) {
+			throw new RuntimeException("criacao dos arquivos vazios: " + ex.getMessage());
 		}
 
-		try	{
-			String tipo,nome, email, empresa, idade, ids;
-			File f = new File( new File(".\\contas.csv").getCanonicalPath())  ;
-			Scanner arquivo2 = new Scanner(f);	 
-			while(arquivo2.hasNextLine()) 	{
-				linha = arquivo2.nextLine().trim();	
+		String linha;
+		String[] partes;
+		Correntista co = null;
+		Conta c = null;
+
+		// Carregar correntistas
+		try {
+			String cpf, nome, senha, contas;
+			File f = new File(new File(".\\correntistas.csv").getCanonicalPath());
+			Scanner arquivo1 = new Scanner(f);
+			while (arquivo1.hasNextLine()) {
+				linha = arquivo1.nextLine().trim();
 				partes = linha.split(";");
-				//System.out.println(Arrays.toString(partes));
-				tipo = partes[0];
-				email = partes[1];
-				nome = partes[2];
-				idade = partes[3];
-				ids="";
-				if(tipo.equals("Conta")) {
-					p = new Conta(email,nome,Integer.parseInt(idade));
-					this.adicionar(p);
-					if(partes.length>4)
-						ids = partes[4];		//ids dos Correntistas separados por ","
-				}
-				else {
-					empresa = partes[4];
-					p = new ContaEspecial(email,nome,Integer.parseInt(idade),empresa);
-					this.adicionar(p);
-					if(partes.length>5)
-						ids = partes[5];		//ids dos Correntistas separados por ","
-				}
+				cpf = partes[0];
+				nome = partes[1];
+				senha = partes[2];
+				contas = partes[3];
+				co = new Correntista(cpf, nome, senha);
+				this.adicionar(co);
+			}
+			arquivo1.close();
+		} catch (Exception ex) {
+			throw new RuntimeException("leitura arquivo de correntistas: " + ex.getMessage());
+		}
 
-				//relacionar Conta com os seus Correntistas
-				if(!ids.isEmpty()) {	
-					for(String idCorrentista : ids.split(",")){	//converter string em array
-						ev = this.localizarCorrentista(Integer.parseInt(idCorrentista));
-						ev.adicionar(p);
-						p.adicionar(ev);
+		// Carregar contas
+		try {
+			String tipo, id, data, saldo, limite, correntistas;
+			File f = new File(new File(".\\contas.csv").getCanonicalPath());
+			Scanner arquivo2 = new Scanner(f);
+			while (arquivo2.hasNextLine()) {
+				linha = arquivo2.nextLine().trim();
+				partes = linha.split(";");
+				tipo = partes[0];
+				id = partes[1];
+				data = partes[2];
+				saldo = partes[3];
+				correntistas = "";
+
+				if (tipo.equals("CONTA")) {
+					c = new Conta(Integer.parseInt(id), data, Double.parseDouble(saldo));
+					this.adicionar(c);
+					if (partes.length > 4) {
+						correntistas = partes[4]; // cpfs dos correntistas
+						if (!correntistas.isEmpty() && c != null) {
+							for (String correntistaCpf : correntistas.split(",")) {
+								co = this.localizarCorrentista(correntistaCpf);
+//								co.adicionar(c);
+								c.adicionar(co);
+							}
+						}
+					}
+				} else if (tipo.equals("CONTA ESPECIAL")) {
+					limite = partes[4];
+					ContaEspecial ce = new ContaEspecial(Integer.parseInt(id), data, Double.parseDouble(saldo),
+							Double.parseDouble(limite));
+					this.adicionar(ce);
+					if (partes.length > 5) {
+						correntistas = partes[5]; // cpfs dos correntistas
+						// relacionar correntista com as suas contas
+						if (!correntistas.isEmpty() && ce != null) {
+							for (String cpfCorrentista : correntistas.split(",")) { // converter string em array
+								co = this.localizarCorrentista(cpfCorrentista);
+//								co.adicionar(ce);
+								ce.adicionar(co);
+							}
+						}
 					}
 				}
 			}
 			arquivo2.close();
-		}
-		catch(Exception ex)		{
-			throw new RuntimeException("leitura arquivo de Contas:"+ex.getMessage());
+		} catch (Exception ex) {
+			throw new RuntimeException("leitura arquivo de contas: " + ex.getMessage());
 		}
 	}
 
-	//--------------------------------------------------------------------
-	public void	salvarObjetos()  {
-		//gravar nos arquivos csv os objetos que est�o no reposit�rio
-		try	{
-			File f = new File( new File(".\\correntistas.csv").getCanonicalPath())  ;
-			FileWriter arquivo1 = new FileWriter(f); 
-			for(Correntista e : Correntistas) 	{
-				arquivo1.write(e.getId()+";"+e.getData()+";"+e.getDescricao()+";"+e.getPreco()+"\n");	
-			} 
+	// --------------------------------------------------------------------
+	public void salvarObjetos() {
+		// Gravar nos arquivos csv os objetos que estao no repositorio
+		try {
+			File f = new File(new File(".\\correntistas.csv").getCanonicalPath());
+			FileWriter arquivo1 = new FileWriter(f);
+			for (Correntista co : correntistas) {
+				arquivo1.write(co.getCpf() + ";" + co.getNome() + ";" + co.getSenha() + ";" + co.getContas() + "\n");
+			}
 			arquivo1.close();
-		}
-		catch(Exception e){
-			throw new RuntimeException("problema na criacao do arquivo  Correntistas "+e.getMessage());
+		} catch (Exception e) {
+			throw new RuntimeException("problema na criação do arquivo correntistas: " + e.getMessage());
 		}
 
-		try	{
-			File f = new File( new File(".\\contas.csv").getCanonicalPath())  ;
-			FileWriter arquivo2 = new FileWriter(f) ; 
-			ArrayList<String> lista ;
-			String listaId;
-			for(Conta p : Contas) {
-				//montar uma lista com os id dos Correntistas do Conta
+		try {
+			File f = new File(new File(".\\contas.csv").getCanonicalPath());
+			FileWriter arquivo2 = new FileWriter(f);
+			ArrayList<String> lista;
+			String listaCpf;
+			for (Conta c : contas) {
 				lista = new ArrayList<>();
-				for(Correntista e : p.getCorrentistas()) {
-					lista.add(e.getId()+"");
+				for (Correntista co : c.getCorrentistas()) {
+					lista.add(co.getCpf() + "");
 				}
-				listaId = String.join(",", lista);
+				listaCpf = String.join(",", lista);
 
-				if(p instanceof ContaEspecial c )
-					arquivo2.write("ContaEspecial;" +p.getEmail() +";" + p.getNome() +";" 
-							+ p.getIdade() +";"+ c.getEmpresa() +";"+ listaId +"\n");	
-				else
-					arquivo2.write("Conta;" +p.getEmail() +";" + p.getNome() +";" 
-							+ p.getIdade() +";"+ listaId +"\n");	
+				if (c instanceof ContaEspecial ce) {
+					arquivo2.write("CONTA ESPECIAL;" + c.getId() + ";" + c.getData() + ";" + c.getSaldo() + ";"
+							+ ce.getLimite() + ";" + listaCpf + "\n");
+				} else {
+					arquivo2.write(
+							"CONTA;" + c.getId() + ";" + c.getData() + ";" + c.getSaldo() + ";" + listaCpf + "\n");
 
-			} 
+				}
+			}
 			arquivo2.close();
+		} catch (Exception e) {
+			throw new RuntimeException("problema na criação do arquivo contas: " + e.getMessage());
 		}
-		catch (Exception e) {
-			throw new RuntimeException("problema na criacao do arquivo  Contas "+e.getMessage());
-		}
-
 	}
 }
-
