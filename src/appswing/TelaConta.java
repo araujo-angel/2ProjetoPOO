@@ -6,32 +6,35 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import repositorio.Repositorio;
 import regras_negocio.Fachada;
 import modelo.Conta;
 import modelo.ContaEspecial;
 
 public class TelaConta extends JFrame {
-    private JTextArea areaListagem;
+    private JPanel painelListagem;
     private JTextField campoCpfTitularSimples, campoCpfTitularEspecial, campoLimite;
     private JButton botaoCriarSimples, botaoCriarEspecial;
 
     public TelaConta() {
         setTitle("Gerenciar Contas");
-        setSize(800, 400);  // Diminuindo a altura da tela
+        setSize(800, 600);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(new BorderLayout(10, 10));
-        
-        // Painel de listagem de contas
-        JPanel painelListagem = new JPanel(new BorderLayout());
-        JLabel labelListagem = new JLabel("Lista das Contas");
-        labelListagem.setHorizontalAlignment(SwingConstants.LEFT);
-        painelListagem.add(labelListagem, BorderLayout.NORTH);
 
-        areaListagem = new JTextArea(5, 50);  // Diminuindo a altura
-        areaListagem.setEditable(false);
-        JScrollPane scroll = new JScrollPane(areaListagem);
-        painelListagem.add(scroll, BorderLayout.CENTER);
-        add(painelListagem, BorderLayout.CENTER);
+        // Painel de listagem de contas com título
+        painelListagem = new JPanel();
+        painelListagem.setLayout(new BoxLayout(painelListagem, BoxLayout.Y_AXIS));
+
+        // Adiciona título "Lista de Contas"
+        JLabel labelTitulo = new JLabel("Lista de Contas");
+        labelTitulo.setFont(new Font("Arial", Font.BOLD, 16));
+        labelTitulo.setAlignmentX(Component.LEFT_ALIGNMENT);
+        painelListagem.add(labelTitulo);
+
+        // Adiciona um painel scrollável para a lista de contas
+        JScrollPane scroll = new JScrollPane(painelListagem);
+        add(scroll, BorderLayout.CENTER);
 
         // Painel de cadastro de conta
         JPanel painelCadastro = new JPanel(new GridLayout(1, 2, 10, 10));
@@ -126,18 +129,64 @@ public class TelaConta extends JFrame {
 
     // Método para atualizar a listagem de contas
     public void atualizarListagemContas() {
+        painelListagem.removeAll(); // Limpar a lista antes de atualizar
+        painelListagem.add(Box.createVerticalStrut(10)); // Adicionando espaçamento inicial
         try {
             ArrayList<Conta> contas = Fachada.listarContas();
-            areaListagem.setText("");
             for (Conta conta : contas) {
-                String info = "ID: " + conta.getId() + " | Saldo: " + conta.getSaldo();
-                if (conta instanceof ContaEspecial) { // Verificando se é Conta Especial
-                    info += " | Limite: " + ((ContaEspecial) conta).getLimite();
+                JPanel painelConta = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 0));  // Layout horizontal com espaçamento reduzido
+                painelConta.setAlignmentX(Component.LEFT_ALIGNMENT);  // Justificando o painel à esquerda
+
+                String info;
+                if (conta instanceof ContaEspecial) {
+                    info = "Conta Especial | ID: " + conta.getId() + " | Saldo: " + conta.getSaldo() + " | Limite: " + ((ContaEspecial) conta).getLimite();
+                } else {
+                    info = "Conta Simples | ID: " + conta.getId() + " | Saldo: " + conta.getSaldo();
                 }
-                areaListagem.append(info + "\n");
+
+                JLabel labelConta = new JLabel(info);
+                painelConta.add(labelConta);
+
+                // Botão adicionar cotitular
+                JButton botaoAdicionarCotitular = new JButton("Adicionar Cotitular");
+                botaoAdicionarCotitular.setPreferredSize(new Dimension(160, 25)); // Ajustando o tamanho dos botões
+                botaoAdicionarCotitular.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        adicionarCotitular(conta);
+                    }
+                });
+                painelConta.add(botaoAdicionarCotitular);
+
+                // Botão remover cotitular
+                JButton botaoRemoverCotitular = new JButton("Remover Cotitular");
+                botaoRemoverCotitular.setPreferredSize(new Dimension(160, 25)); // Ajustando o tamanho dos botões
+                botaoRemoverCotitular.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        removerCotitular(conta);
+                    }
+                });
+                painelConta.add(botaoRemoverCotitular);
+
+                // Botão apagar conta
+                JButton botaoApagarConta = new JButton("Apagar Conta");
+                botaoApagarConta.setPreferredSize(new Dimension(160, 25)); // Ajustando o tamanho dos botões
+                botaoApagarConta.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        apagarConta(conta);
+                    }
+                });
+                painelConta.add(botaoApagarConta);
+
+                painelListagem.add(painelConta);  // Adicionando o painel da conta à listagem
+                painelListagem.add(Box.createVerticalStrut(60));  // Diminuindo o espaço entre as contas
             }
+            painelListagem.revalidate();
+            painelListagem.repaint();
         } catch (Exception e) {
-            areaListagem.setText("Erro ao listar contas: " + e.getMessage());
+            JOptionPane.showMessageDialog(this, "Erro ao listar contas: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -152,7 +201,6 @@ public class TelaConta extends JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
-        setVisible(true);
     }
 
     // Método para criar conta especial
@@ -170,6 +218,48 @@ public class TelaConta extends JFrame {
             JOptionPane.showMessageDialog(this, "Limite inválido. Insira um valor numérico.", "Erro", JOptionPane.ERROR_MESSAGE);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    // Método para adicionar cotitular
+    private void adicionarCotitular(Conta conta) {
+        String cpf = JOptionPane.showInputDialog(this, "Digite o CPF do cotitular:");
+        if (cpf != null && !cpf.isEmpty()) {
+            try {
+                Fachada.inserirCorrentistaConta(conta.getId(), cpf);
+                atualizarListagemContas();
+                JOptionPane.showMessageDialog(this, "Cotitular adicionado com sucesso!");
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+    // Método para remover cotitular
+    private void removerCotitular(Conta conta) {
+        String cpf = JOptionPane.showInputDialog(this, "Digite o CPF do cotitular a ser removido:");
+        if (cpf != null && !cpf.isEmpty()) {
+            try {
+                Fachada.removerCorrentistaConta(conta.getId(), cpf);
+                atualizarListagemContas();
+                JOptionPane.showMessageDialog(this, "Cotitular removido com sucesso!");
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+    // Método para apagar conta
+    private void apagarConta(Conta conta) {
+        int confirmacao = JOptionPane.showConfirmDialog(this, "Tem certeza que deseja apagar esta conta?", "Confirmação", JOptionPane.YES_NO_OPTION);
+        if (confirmacao == JOptionPane.YES_OPTION) {
+            try {
+                Fachada.apagarConta(conta.getId());
+                atualizarListagemContas();
+                JOptionPane.showMessageDialog(this, "Conta apagada com sucesso!");
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
 
