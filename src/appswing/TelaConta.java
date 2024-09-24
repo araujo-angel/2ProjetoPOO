@@ -17,9 +17,10 @@ public class TelaConta extends JFrame {
     private JButton botaoCriarSimples, botaoCriarEspecial;
 
     public TelaConta() {
-        setTitle("Gerenciar Contas");
+    	setTitle("Gerenciar Contas");
         setSize(800, 600);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setVisible(true); // Tornar a tela visível
         setLayout(new BorderLayout(10, 10));
 
         // Painel de listagem de contas com título

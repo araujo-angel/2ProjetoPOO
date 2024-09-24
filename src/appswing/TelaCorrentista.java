@@ -16,9 +16,10 @@ public class TelaCorrentista extends JFrame {
     private JButton botaoCriar;
 
     public TelaCorrentista() {
-        setTitle("Gerenciar Correntistas");
-        setSize(600, 400);
+    	setTitle("Gerenciar Contas");
+        setSize(800, 600);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setVisible(true); // Tornar a tela visível
         setLayout(new BorderLayout(10, 10));
 
         // Painel de listagem de correntistas

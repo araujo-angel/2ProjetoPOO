@@ -8,9 +8,10 @@ import regras_negocio.Fachada;
 
 public class TelaCaixa extends JFrame {
     public TelaCaixa() {
-        setTitle("Operações de Caixa");
-        setSize(400, 300);
+    	setTitle("Gerenciar Contas");
+        setSize(500, 400);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setVisible(true); // Tornar a tela visível
         
         // Definir layout da tela
         JPanel panel = new JPanel();

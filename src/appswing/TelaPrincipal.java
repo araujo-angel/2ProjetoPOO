@@ -6,69 +6,61 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class TelaPrincipal extends JFrame {
-
     public TelaPrincipal() {
+        // Configuração da janela principal
         setTitle("Sistema Financeiro");
-        setSize(600, 400); // Tamanho inicial da janela
+        setSize(400, 300);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
-        // Definir layout principal
-        JPanel panel = new JPanel();
-        panel.setLayout(new GridBagLayout()); // Usando GridBagLayout para controle preciso
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(10, 10, 10, 10); // Espaçamento entre os botões
-        
-        // Criar botões
-        JButton btnCorrentista = new JButton("Correntista");
-        JButton btnConta = new JButton("Conta");
-        JButton btnCaixa = new JButton("Caixa");
-        
-        // Definir tamanho dos botões (40% da largura da tela principal)
-        Dimension buttonSize = new Dimension((int)(getWidth() * 0.4), 50);
-        btnCorrentista.setPreferredSize(buttonSize);
-        btnConta.setPreferredSize(buttonSize);
-        btnCaixa.setPreferredSize(buttonSize);
-        
-        // Adicionar botões ao painel
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        panel.add(btnCorrentista, gbc);
-        
-        gbc.gridy = 1;
-        panel.add(btnConta, gbc);
-        
-        gbc.gridy = 2;
-        panel.add(btnCaixa, gbc);
-        
-        // Adicionar painel centralizado à tela principal
-        add(panel, BorderLayout.CENTER);
-        
-        // Ações dos botões
-        btnCorrentista.addActionListener(new ActionListener() {
+        setLayout(new GridLayout(4, 1, 10, 10)); // Layout de grade com 4 linhas
+
+        // Botão para gerenciar contas
+        JButton btnGerenciarContas = new JButton("Gerenciar Contas");
+        btnGerenciarContas.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
-                // Abre a TelaCorrentista
-                new TelaCorrentista().setVisible(true); // Assegure-se de chamar setVisible aqui
+                new TelaConta(); // Chama a tela de gerenciamento de contas
             }
         });
-        
-        btnConta.addActionListener(new ActionListener() {
+
+        // Botão para gerenciar correntistas
+        JButton btnGerenciarCorrentistas = new JButton("Gerenciar Correntistas");
+        btnGerenciarCorrentistas.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
-                // Abre a TelaConta
-                new TelaConta().setVisible(true); // Assegure-se de chamar setVisible aqui
+                new TelaCorrentista(); // Chama a tela de gerenciamento de correntistas
             }
         });
-        
-        btnCaixa.addActionListener(new ActionListener() {
+
+        // Botão para abrir a tela de operações de caixa
+        JButton btnOperacoesCaixa = new JButton("Operações de Caixa");
+        btnOperacoesCaixa.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
-                // Abre a TelaCaixa
-                new TelaCaixa().setVisible(true); // Assegure-se de chamar setVisible aqui
+                new TelaCaixa(); // Abre a tela de operações de caixa
             }
         });
-        
+
+        // Botão para sair do sistema
+        JButton btnSair = new JButton("Sair");
+        btnSair.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0); // Fecha o aplicativo
+            }
+        });
+
+        // Adicionar os botões à tela
+        add(btnGerenciarContas);
+        add(btnGerenciarCorrentistas); // Adicionando o botão de gerenciar correntistas
+        add(btnOperacoesCaixa);
+        add(btnSair);
+
+        // Tornar a tela visível
         setVisible(true);
     }
-    
+
     public static void main(String[] args) {
-        new TelaPrincipal();
+        // Executa a tela principal
+        SwingUtilities.invokeLater(() -> new TelaPrincipal());
     }
 }
