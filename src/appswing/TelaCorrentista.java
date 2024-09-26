@@ -141,7 +141,6 @@ public class TelaCorrentista extends JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
-        setVisible(true);
     }
 
     public static void main(String[] args) {

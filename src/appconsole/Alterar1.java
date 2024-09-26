@@ -26,14 +26,6 @@ public class Alterar1 {
 		} catch (Exception e) {
 			System.out.println("--->" + e.getMessage());
 		}
-
-		try {
-			//Fachada.adiarEvento("24/10/2024", "30/10/2024");
-			//System.out.println("adiou evento");
-
-		} catch (Exception e) {
-			System.out.println("--->" + e.getMessage());
-		}
 	}
 
 	public static void main(String[] args) {

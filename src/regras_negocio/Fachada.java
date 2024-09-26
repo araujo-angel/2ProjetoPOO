@@ -107,32 +107,31 @@ public class Fachada {
 		if (cont != null)
 			throw new Exception("Este correntista " + cpf + "ja e titular desta conta");
 
-		//correntista.adicionar(conta);
+		// correntista.adicionar(conta);
 		conta.adicionar(correntista);
 		repositorio.salvarObjetos();
 	}
 
 	public static void removerCorrentistaConta(int id, String cpf) throws Exception {
-		// removerCorrentistaConta(id, cpf) – remove relacionamento entre um correntista e uma conta
+		// removerCorrentistaConta(id, cpf) – remove relacionamento entre um correntista
+		// e uma conta
 
 		Conta c = repositorio.localizarConta(id);
 		if (c == null)
 			throw new Exception("remover Conta: Conta " + id + " inexistente");
 
+		boolean cotitularEncontrado = c.getCorrentistas().stream().anyMatch(conta -> conta.getCpf().equals(cpf));
+		if (!cotitularEncontrado) {
+			throw new Exception("Correntista não é cotitular desta conta.");
+		}
 		Correntista co = repositorio.localizarCorrentista(cpf);
 		if (co == null)
 			throw new Exception("remover Conta: Correntista " + cpf + " inexistente");
-		
-		 if (!c.getCorrentistas().isEmpty() && c.getCorrentistas().get(0).getCpf().equals(cpf)) {
-		        throw new Exception("O correntista titular " + cpf + " não pode ser removido da conta antes que ela seja deletada.");
-		    }
-		
-//		for (Conta cExiste : repositorio.getConta()) {
-//			if (!cExiste.getCorrentistas().isEmpty() && cExiste.getCorrentistas().get(0).getCpf().equals(cpf)) {
-//				throw new Exception("O correntista titular " + cpf + " nao pode ser removido da conta antes que ela seja deletada.");
-//			}
-//		}
 
+		if (!c.getCorrentistas().isEmpty() && c.getCorrentistas().get(0).getCpf().equals(cpf)) {
+			throw new Exception(
+					"O correntista titular " + cpf + " não pode ser removido da conta antes que ela seja deletada.");
+		}
 		c.remover(co);
 		co.remover(c);
 		repositorio.salvarObjetos();
@@ -186,14 +185,13 @@ public class Fachada {
 		}
 		if (c instanceof ContaEspecial) {
 			ContaEspecial ce = (ContaEspecial) c;
-			if (ce.getSaldo() - valor < - ce.getLimite()) {
+			if (ce.getSaldo() - valor < -ce.getLimite()) {
 				throw new Exception("Saldo insuficiente. Limite excedido.");
 			} else {
 				ce.debitar(valor);
 				repositorio.salvarObjetos();
 			}
-		}
-		else if (c.getSaldo() - valor < 0) {
+		} else if (c.getSaldo() - valor < 0) {
 			throw new Exception("Saldo insuficiente.");
 		} else {
 			c.debitar(valor);

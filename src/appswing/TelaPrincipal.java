@@ -13,21 +13,21 @@ public class TelaPrincipal extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new GridLayout(4, 1, 10, 10)); // Layout de grade com 4 linhas
 
-        // Botão para gerenciar contas
-        JButton btnGerenciarContas = new JButton("Gerenciar Contas");
-        btnGerenciarContas.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new TelaConta(); // Chama a tela de gerenciamento de contas
-            }
-        });
-
-        // Botão para gerenciar correntistas
+        // Botão para gerenciar correntistas (agora a tela correta)
         JButton btnGerenciarCorrentistas = new JButton("Gerenciar Correntistas");
         btnGerenciarCorrentistas.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new TelaCorrentista(); // Chama a tela de gerenciamento de correntistas
+            }
+        });
+
+        // Botão para gerenciar contas (agora a tela correta)
+        JButton btnGerenciarContas = new JButton("Gerenciar Contas");
+        btnGerenciarContas.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new TelaConta(); // Chama a tela de gerenciamento de contas
             }
         });
 
@@ -49,13 +49,12 @@ public class TelaPrincipal extends JFrame {
             }
         });
 
-        // Adicionar os botões à tela
-        add(btnGerenciarContas);
-        add(btnGerenciarCorrentistas); // Adicionando o botão de gerenciar correntistas
+        // Adicionar os botões à tela na ordem correta
+        add(btnGerenciarCorrentistas); // Primeiro, gerenciar correntistas
+        add(btnGerenciarContas); // Depois, gerenciar contas
         add(btnOperacoesCaixa);
         add(btnSair);
-
-        // Tornar a tela visível
+        
         setVisible(true);
     }
 
