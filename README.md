@@ -1,6 +1,6 @@
 Projeto referente a segunda nota na disciplina de Programação Orientada a Objetos.
 
-*Cenário*
+*Cenário*:
 Um Banco financeiro contratou você para implementar o sistema de informação bancário Banko, 
 que permitirá aos funcionários criarem, alterarem, listarem e apagarem contas correntes e permitirá aos 
 correntistas acessarem os caixas de autoatendimento para as operações de caixa (crédito, débito e 
